@@ -1,0 +1,146 @@
+[
+    {
+        "id": 1,
+        "cover": "../img/kinga-cichewicz.jpg",
+        "slug": "kinga-cichewicz"
+    },
+
+    {
+        "id": 2,
+        "cover": "../img/ari-he.jpg",
+        "slug": "ari-he"
+    },
+
+    {
+        "id": 3,
+        "cover": "../img/milad-fakurian.jpg",
+        "slug": "milad-fakurian"
+    },
+
+    {
+        "id": 4,
+        "cover": "../img/chester-wade.jpg",
+        "slug": "chester-wade"
+    },
+
+    {
+        "id": 5,
+        "cover": "../img/hanna-postova.jpg",
+        "slug": "hanna-postova"
+    },
+
+    {
+        "id": 6,
+        "cover": "../img/ian-dooley.jpg",
+        "slug": "ian-dooley"
+    },
+
+    {
+        "id": 7,
+        "cover": "../img/anthony-tran.jpg",
+        "slug": "anthony-tran"
+    },
+
+    {
+        "id": 8,
+        "cover": "../img/antonio-molinari.jpg",
+        "slug": "antonio-molinari"
+    },
+
+    {
+        "id": 9,
+        "cover": "../img/pim-chu.jpg",
+        "slug": "pim-chu"
+    },
+
+    {
+        "id": 10,
+        "cover": "../img/michael-dziedzic.jpg",
+        "slug": "michael-dziedzic"
+    },
+
+    {
+        "id": 11,
+        "cover": "../img/william-f-santos.jpg",
+        "slug": "william-f-santos"
+    },
+
+    {
+        "id": 12,
+        "cover": "../img/sam-moghadam-khamseh.jpg",
+        "slug": "sam-moghadam-khamseh"
+    },
+
+    {
+        "id": 13,
+        "cover": "../img/kinga-cichewicz.jpg",
+        "slug": "kinga-cichewicz"
+    },
+
+    {
+        "id": 14,
+        "cover": "../img/ari-he.jpg",
+        "slug": "ari-he"
+    },
+
+    {
+        "id": 15,
+        "cover": "../img/milad-fakurian.jpg",
+        "slug": "milad-fakurian"
+    },
+
+    {
+        "id": 16,
+        "cover": "../img/chester-wade.jpg",
+        "slug": "chester-wade"
+    },
+
+    {
+        "id": 17,
+        "cover": "../img/hanna-postova.jpg",
+        "slug": "hanna-postova"
+    },
+
+    {
+        "id": 18,
+        "cover": "../img/ian-dooley.jpg",
+        "slug": "ian-dooley"
+    },
+
+    {
+        "id": 19,
+        "cover": "../img/anthony-tran.jpg",
+        "slug": "anthony-tran"
+    },
+
+    {
+        "id": 20,
+        "cover": "../img/antonio-molinari.jpg",
+        "slug": "antonio-molinari"
+    },
+
+    {
+        "id": 21,
+        "cover": "../img/pim-chu.jpg",
+        "slug": "pim-chu"
+    },
+
+    {
+        "id": 22,
+        "cover": "../img/michael-dziedzic.jpg",
+        "slug": "michael-dziedzic"
+    },
+
+    {
+        "id": 23,
+        "cover": "../img/william-f-santos.jpg",
+        "slug": "william-f-santos"
+    },
+
+    {
+        "id": 24,
+        "cover": "../img/sam-moghadam-khamseh.jpg",
+        "slug": "sam-moghadam-khamseh"
+    }
+
+] 
