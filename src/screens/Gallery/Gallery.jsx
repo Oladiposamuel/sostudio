@@ -6,12 +6,7 @@ import '../Home/home.css';
 import { HiXMark } from 'react-icons/hi2';
 import ReactPlayer from 'react-player/lazy';
 import { vidData } from '../../utils/vid';
-import Boxing from '../../vid/Boxing.mp4';
-import Dancing from '../../vid/Dancing.mp4';
-import Hercules from '../../vid/Hercules.mp4';
-import Lioness from '../../vid/Lioness.mp4';
-import Voyage from '../../vid/Voyage.mp4';
-import Waterfall from '../../vid/Waterfall.mp4';
+
 
 const Gallery = () => {
 
@@ -27,33 +22,13 @@ const Gallery = () => {
 
     const [contactEffect, setContactEffect] = useState(false);
 
-    const [showVid1, setShowVid1] = useState(true);
-
-    const [showBigVid1, setShowBigVid1] = useState(false);
-
-    const [showBigVid2, setShowBigVid2] = useState(false);
-
-    const [showBigVid3, setShowBigVid3] = useState(false);
-
-    const [showBigVid4, setShowBigVid4] = useState(false);
-
-    const [showBigVid5, setShowBigVid5] = useState(false);
-
-    const [showBigVid6, setShowBigVid6] = useState(false);
-
     const [showContact, setShowContact] = useState(false);
 
     const [changeCursor, setChangeCursor] = useState(false);
 
-    const [play, setPlay] = useState(false);
+    const [placeholder, setPlaceholder] = useState(true);
 
-    const [showVidBox, setShowVidBox] = useState(false);
-
-    const [opacity, setOpacity] = useState(1);
-
-    const [twog, setTwog] = useState(false);
-
-    const [threeg, setThreeg] = useState(false);
+    const [vidId, setVidId] = useState(6);
 
     const [mousePosition, setMousePosition] = useState({
         x: 0,
@@ -63,18 +38,6 @@ const Gallery = () => {
     const loaderControls1 = useAnimation();
 
     const loaderControls2 = useAnimation();
-
-    const boxingIndex = useMotionValue(6);
-
-    const dancingIndex = useMotionValue(5);
-
-    const herculesIndex = useMotionValue(4);
-
-    const lionessIndex = useMotionValue(3);
-
-    const voyageIndex = useMotionValue(2);
-
-    const waterIndex = useMotionValue(1);
 
     const handleMouseEnter = () => {
         setChangeCursor(true);
@@ -299,99 +262,6 @@ const Gallery = () => {
                 })
             })
 
-            const loop = () => {
-
-                setTimeout(() => {
-                    setShowBigVid1(true);
-                }, 3000)
-    
-                setTimeout(() => {
-                    setShowBigVid1(false);
-                }, 10000)
-    
-               setTimeout(() => {
-                    setShowBigVid2(true);
-                }, 10500) 
-    
-                setTimeout(() => {
-                    setShowBigVid2(false);
-                }, 17500)
-    
-                setTimeout(() => {
-                    setShowBigVid3(true);
-                }, 18000) 
-    
-                setTimeout(() => {
-                    setShowBigVid3(false);
-                }, 25000) 
-    
-                setTimeout(() => {
-                    setShowBigVid4(true);
-                }, 25500)
-                
-                setTimeout(() => {
-                    setShowBigVid4(false);
-                }, 33000) 
-    
-                setTimeout(() => {
-                    setShowBigVid5(true);
-                }, 33500) 
-    
-                setTimeout(() => {
-                    setShowBigVid5(false);
-                }, 40500) 
-    
-                setTimeout(() => {
-                    setShowBigVid6(true);
-                }, 41000) 
-    
-                setTimeout(() => {
-                    setShowBigVid6(false);
-                }, 48000) 
-
-                setTimeout(() => {
-                    loop();
-                }, 48500) 
-
-            }
-
-            const smallLoop = () => {
-    
-                setTimeout(() => {
-                    boxingIndex.set(-1);
-                }, 7000)
-    
-                setTimeout(() => {
-                    dancingIndex.set(-1);
-                }, 14000) 
-    
-                setTimeout(() => {
-                    herculesIndex.set(-1);
-                }, 21000)
-    
-                setTimeout(() => {
-                    lionessIndex.set(-1);
-                }, 28000) 
-    
-                setTimeout(() => {
-                    voyageIndex.set(-1);
-                }, 35000) 
-
-                setTimeout(() => {
-                    boxingIndex.set(6);
-                    dancingIndex.set(5);
-                    herculesIndex.set(4);
-                    lionessIndex.set(3);
-                    voyageIndex.set(2);
-                    smallLoop();
-                }, 42000)
-
-            }
-
-            !mql.matches && loop();
-
-            mql.matches && smallLoop();
-
         }
 
         sequence();
@@ -400,27 +270,36 @@ const Gallery = () => {
 
     useEffect(() => {
 
-        setTimeout(() => {
-            setShowVidBox(true);
-            setPlay(false);
-        }, 500)
-
-        setTimeout(() => {
-            //setPlay(true);
-        }, 600)
-        
-    }, [])
-
-    useEffect(() => {
-        if (navigator.connection && !!navigator.connection.effectiveType) {
-            console.log(navigator.connection);
-            if (navigator.connection.effectiveType === '4g') {
-              console.log('4G!!')
-            } else {
-              console.log('NO 4G!!')
-            }
+        let vid = document.getElementById("myVideo");
+        vid.oncanplay = function() {
+            console.log("Can start playing video");
+            setPlaceholder(false);
+            loop();
         }
-    }, [navigator.connection])
+
+        const loop = () => {
+            setTimeout(() => {
+                setVidId(5);
+            }, 10000)
+
+            setTimeout(() => {
+                setVidId(4);
+            }, 20000)
+
+            setTimeout(() => {
+                setVidId(3);
+            }, 30000)
+
+            setTimeout(() => {
+                setVidId(2);
+            }, 40000)
+
+            setTimeout(() => {
+                setVidId(1);
+            }, 50000)
+        }
+
+    }, [vidId])
 
 
   return (
@@ -434,15 +313,16 @@ const Gallery = () => {
             animate={loaderControls2}
         />}
 
-        {/* <Link to='/'>
-            <motion.div
+        {placeholder && 
+            <motion.div 
+                className='placeholder'
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
-                transition={{type: 'spring', delay: 1}}
-                className='so'
-                >SO
+                transition={{type: 'spring', delay: .8, duration: .5}}
+            >
+            
             </motion.div>
-        </Link> */}
+        }
 
         <motion.div 
             variants={descVariant}
@@ -522,340 +402,16 @@ const Gallery = () => {
             className='gallery-content'
         >
 
-            {showVidBox && 
-            <motion.div className='box-1' >
 
-                {vidData.slice(0, 3).map((video, id) => { 
-                    return(
-                        <motion.div className='small-box' key={id} layoutId={video.layoutId} >
-                            <ReactPlayer url={video.cover} playing={play} loop={true} controls={false} volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                                onReady={() => { 
-                                    //console.log('Video ready to play 1');
-                                    setPlay(true);
-                                }}
-                                onPlay={() => {setPlay(true)}}
-                                onPause={() => {
-                                    //console.log('Video is paused!')
-                                }}
-                                onError={(error) => {console.log(error)}}
-                            />
-                        </motion.div>
-                    )
-}               )}
-
-            </motion.div>}
-
-            <motion.div className='box-2'>
-
-            </motion.div>
-
-            {showVidBox && <motion.div className='box-3'  >
-
-                {vidData.slice(3, 6).map((video, id) => { 
-                        return(
-                            <motion.div className='small-box' key={id} layoutId={video.layoutId} >
-                                <ReactPlayer url={video.cover} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                                    onReady={() => { 
-                                        //console.log('Video ready to play 2');
-                                        setPlay(true);
-                                    }}
-                                    onPlay={() => {setPlay(true)}}
-                                    onPause={() => {
-                                        //console.log('Video is paused!')
-                                    }}
-                                    onError={(error) => {console.log(error)}}
-                                />
-                            </motion.div>
-                        )
-                })}
-
-            </motion.div> }
-
-            { showBigVid1 && !mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    layoutId='big-vid-1'
-                    transition={{type: 'spring', duration: .5}}
-                >  
-
-                    <ReactPlayer url={Boxing} playing={play} loop={true} controls={false} volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            //console.log('Video ready to play 2');
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                            //console.log('video1 is playing');
-                            setOpacity(0);
-                            setTimeout(() => {
-                                setOpacity(1);
-                            }, 6900)
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-
-           </motion.div> }
-
-           { showBigVid2 && !mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    layoutId='big-vid-2'
-                    transition={{type: 'spring', duration: .5}}
-                >  
-                    <ReactPlayer url={Dancing} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            //console.log('Video ready to play 2');
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                            //console.log('video2 is playing');
-                            setOpacity(0);
-                            setTimeout(() => {
-                                setOpacity(1);
-                            }, 6900)
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { showBigVid3 && !mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    layoutId='big-vid-3'
-                    transition={{type: 'spring', duration: .5}}
-                >  
-                    <ReactPlayer url={Hercules} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            //console.log('Video ready to play 2');
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                            //console.log('video2 is playing');
-                            setOpacity(0);
-                            setTimeout(() => {
-                                setOpacity(1);
-                            }, 6900)
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { showBigVid4 && !mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    layoutId='big-vid-4'
-                    transition={{type: 'spring', duration: .5}}
-                >  
-                    <ReactPlayer url={Lioness} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            //console.log('Video ready to play 2');
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                            //console.log('video2 is playing');
-                            setOpacity(0);
-                            setTimeout(() => {
-                                setOpacity(1);
-                            }, 6900)
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { showBigVid5 && !mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    layoutId='big-vid-5'
-                    transition={{type: 'spring', duration: .5}}
-                >  
-                    <ReactPlayer url={Voyage} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            //console.log('Video ready to play 2');
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                            //console.log('video2 is playing');
-                            setOpacity(0);
-                            setTimeout(() => {
-                                setOpacity(1);
-                            }, 6900)
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { showBigVid6 && !mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    layoutId='big-vid-6'
-                    transition={{type: 'spring', duration: .5}}
-                >  
-                    <ReactPlayer url={Waterfall} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            //console.log('Video ready to play 2');
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                            //console.log('video2 is playing');
-                            setOpacity(0);
-                            setTimeout(() => {
-                                setOpacity(1);
-                            }, 6900)
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    transition={{type: 'tween', duration: .3}}
-                    style={{zIndex: boxingIndex}}
-                >  
-
-                    <ReactPlayer url={Boxing} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-
-           </motion.div> }
-
-           { mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    transition={{type: 'tween', duration: .3}}
-                    style={{zIndex: dancingIndex}}
-                >  
-                    <ReactPlayer url={Dancing} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    transition={{type: 'tween', duration: .3}}
-                    style={{zIndex: herculesIndex}}
-                >  
-                    <ReactPlayer url={Hercules} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    transition={{type: 'tween', duration: .3}}
-                    style={{zIndex: lionessIndex}}
-                >  
-                    <ReactPlayer url={Lioness} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    transition={{type: 'tween', duration: .3}}
-                    style={{zIndex: voyageIndex}}
-                >  
-                    <ReactPlayer url={Voyage} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
-
-           { mql.matches &&
-                <motion.div 
-                    className='big-vid' 
-                    transition={{type: 'tween', duration: .3}}
-                    style={{zIndex: waterIndex}}
-                >  
-                    <ReactPlayer url={Waterfall} playing={play} loop={true} controls={false}volume={0}  muted={true} width='100%' height='100%' wrapper='div'
-                        onReady={() => { 
-                            //console.log('Video ready to play 2');
-                            setPlay(true);
-                        }}
-                        onPlay={() => {
-                            setPlay(true);
-                            //console.log('video2 is playing');
-                            setOpacity(0);
-                            setTimeout(() => {
-                                setOpacity(1);
-                            }, 6900)
-                        }}
-                        onPause={() => {
-                            //console.log('Video is paused!')
-                        }}
-                        onError={(error) => {console.log(error)}}
-                    />
-           </motion.div> }
+            {vidData.map((video, id) => { 
+                return(
+                    <motion.div className='small-box' key={id} >
+                        <motion.video autoPlay muted loop id="myVideo" animate={id == vidId && {opacity: 0}} >
+                            <source src={video.cover} type="video/mp4" />
+                        </motion.video>
+                    </motion.div>
+                )
+            })}
 
         </motion.div>
 
@@ -891,6 +447,9 @@ const Gallery = () => {
                 </motion.div>
 
                 <motion.div
+                    variants={contactVariant}
+                    initial='hidden'
+                    animate='show'
                     className='contact-content'
                 >
 

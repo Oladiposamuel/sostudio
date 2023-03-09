@@ -109,6 +109,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 200;
 }
 
 .nav-item-link {
@@ -185,7 +186,7 @@
 }
 
 .contact-content {
-    width: 80%;
+    width: 60%;
     height: 100%;
     background-color: #000000;
     border-left: 1px solid #ffffff;
@@ -197,7 +198,7 @@
 }
 
 .contact-cancel {
-    width: 20%;
+    width: 40%;
     height: 100%;
     background-color: transparent;
 }

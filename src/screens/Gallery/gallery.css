@@ -43,65 +43,40 @@
     position: relative;
 }
 
-.box-1 {
-    /* border: 1px solid white; */
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.box-2 {
-    /* border: 1px solid white; */
-    flex: .5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.box-3 {
-    /* border: 1px solid white; */
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}
-
 .small-box {
-    width: 100%;
-    /* border: 1px solid white; */
-}
-
-.vid {
-    height: 100%;
-}
-
-.video {
-    width: 100%;
-    height: 100%;
-}
-
-.vid-1 {
-    width: 150%;
-}
-
-.big-vid {
     position: absolute;
-    /* top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0; */
-    margin: auto auto;
-    /* border: 1px solid red; */
-    width: 100%;
-    /* height: 100%; */
-    /* display: flex;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center; */
+    height: 100%;
 }
 
 .text {
     color: #ffffff;
     font-size: 4rem;
     margin: auto auto;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    margin: auto auto;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.placeholder {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 200;
+    background-image: url('../../img/Placeholder-edit.webp');
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
 }
 
 @media screen and (max-width: 1024px) {
@@ -123,28 +98,6 @@
         position: relative;
         justify-content: center;
         align-items: center;
-    }
-
-    .box-1 {
-        /* border: 1px solid white; */
-        flex: 1;
-        display: none;
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .box-2 {
-        /* border: 1px solid white; */
-        flex: .5;
-        display: none;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .box-3 {
-        /* border: 1px solid white; */
-        flex: 1;
-        display: none;
-        grid-template-columns: repeat(3, 1fr);
     }
 
     .big-vid {

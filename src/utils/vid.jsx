@@ -1,52 +1,46 @@
 import React from "react";
-import Boxing from '../vid/Boxing.mp4';
-import Dancing from '../vid/Dancing.mp4';
-import Hercules from '../vid/Hercules.mp4';
-import Lioness from '../vid/Lioness.mp4';
-import Voyage from '../vid/Voyage.mp4';
-import Waterfall from '../vid/Waterfall.mp4';
+import Advert from '../vid/Advert-trim-720p.mp4';
+import Billboard from '../vid/Billboard-trim-720p.mp4';
+import Black from '../vid/Black-girl-trim-720p.mp4';
+import Landscape from '../vid/Landscape-trim-720p.mp4';
+import Photoshoot from '../vid/Photoshoot-trim-720p.mp4';
+import White from '../vid/White-girl-trim-720p.mp4';
 
 
 export const vidData = [
     {
         "id": 1,
-        "name": "Boxing",
-        "cover": Boxing,
-        "layoutId": 'big-vid-1'
+        "name": "Advert",
+        "cover": Advert,
     },
     
     {
         "id": 2,
-        "name": "Dancing",
-        "cover": Dancing,
-        "layoutId": 'big-vid-2'
+        "name": "Billboard",
+        "cover": Billboard,
     },
 
     {
         "id": 3,
-        "name": "Hercules",
-        "cover": Hercules,
-        "layoutId": 'big-vid-3'
+        "name": "Black",
+        "cover": Black,
     },
 
     {
         "id": 4,
-        "name": "Lioness",
-        "cover": Lioness,
-        "layoutId": 'big-vid-4'
+        "name": "Landscape",
+        "cover": Landscape,
     },
 
     {
         "id": 5,
-        "name": "Voyage",
-        "cover": Voyage,
-        "layoutId": 'big-vid-5'
+        "name": "Photoshoot",
+        "cover": Photoshoot,
     },
 
     {
         "id": 6,
-        "name": "Waterfall",
-        "cover": Waterfall,
-        "layoutId": 'big-vid-6'
+        "name": "White",
+        "cover": White,
     }
 ]
