@@ -25,6 +25,7 @@ const Image = ({element, index, startDrag}) => {
         }}
         transition={{type: 'spring', duration: 2, ease: 'easeIn'}}
         draggable={true}
+        layoutId='work-image' 
     />
 
   )

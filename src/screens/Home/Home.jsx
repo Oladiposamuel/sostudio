@@ -11,6 +11,8 @@ const Home = () => {
 
     let mql = window.matchMedia('(max-width: 1024px)');
 
+    let mobile = window.matchMedia('(max-width: 768px)');
+
     //console.log(mql.matches);
 
     const navigate = useNavigate();
@@ -34,6 +36,8 @@ const Home = () => {
     const [showContainer, setShowContainer] = useState(false);
 
     const [showContact, setShowContact] = useState(false);
+
+    const [showMobileContact, setShowMobileContact] = useState(false);
 
     const [changeCursor, setChangeCursor] = useState(false);
 
@@ -287,6 +291,36 @@ const Home = () => {
         }
     }
 
+    const contactMobileVariant = {
+        hidden: {
+            opacity: 1,
+        },
+        show: showMobileContact && {
+            opacity: 1,
+            transition: {
+                type: 'spring',
+                duration: 1,
+                staggerChildren: 0.25,
+                delayChildren: 0.2,
+            }
+        }
+    }
+
+    const contactMobile = {
+        hidden: {
+            opacity: 0,
+            y: -50,
+        },
+        show: showMobileContact && {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: 'spring',
+                duration: 1,
+            }
+        }
+    }
+
     useEffect(() => {
 
         document.getElementById('contact-cancel').style.cursor = 'none';
@@ -363,6 +397,50 @@ const Home = () => {
         exit="exit"
         className='font-face-normal content'>
 
+            <motion.div className='studio-name-box'>
+
+                <motion.h1 
+                    animate={studioNameControls}
+                    className='studio-name'>
+
+                    { middle && <motion.div
+                    layoutId='so'
+                    //className='so'
+                    animate={soControls}
+                    >SO
+                    </motion.div>}
+                    { middle && <motion.div
+                    className='studio'
+                    layoutId='studio'
+                    animate={studioControls}
+                    >STUDIO
+                    </motion.div>}
+                </motion.h1>
+
+                { showStText && !mql.matches && <motion.div className='short-text-box'
+                    variants={stBoxVariant}
+                    initial="hidden"
+                    animate="show"
+                >
+                    <motion.h1 className='short-text'
+                        variants={stVariant}
+                    >
+                        &copy; 2023
+                    </motion.h1>
+                    <motion.h1 className='short-text'
+                        variants={stVariant}
+                    >
+                        We are a magic studio, we breathe life into your creative ideas.
+                    </motion.h1>
+                    <motion.h1 className='short-text'
+                        variants={stVariant}
+                    >
+                        From the Wonderland
+                    </motion.h1>
+                </motion.div>}
+
+            </motion.div>
+
         <motion.div
             className='studio-name-box'
             style={{alignItems: align}}
@@ -372,7 +450,7 @@ const Home = () => {
             <>
                 <motion.div
                     initial={{x: '100vw'}}
-                    animate={{x: 0}}
+                    animate={ !middle && {x: 0}}
                     transition={{type: 'tween', duration: .5}}
                     className='scroll-container'>
 
@@ -385,6 +463,7 @@ const Home = () => {
                 style={{ x: spring }}
                 className="thumbnails-container"
                 >
+                    <AnimatePresence>
                     {mapData.map((element, index) => (
                         <motion.div 
                             className="image-box" 
@@ -406,9 +485,12 @@ const Home = () => {
                                 }
                             }}
                         >
-                            <Image element= {element} index= {index} startDrag = {startDrag} />
+                           <motion.div >
+                            <Link className='link' to = {`/work/${element.slug}`}> <Image element= {element} index= {index} startDrag = {startDrag} /> </Link>
+                            </motion.div> 
                         </motion.div>
                     ))}             
+                    </AnimatePresence>
                 </motion.section>
                     
                 </motion.div>
@@ -434,7 +516,7 @@ const Home = () => {
 
                 </motion.div>}
 
-            <motion.h1 
+            {/* <motion.h1 
             animate={studioNameControls}
             className='studio-name'>
 
@@ -451,9 +533,9 @@ const Home = () => {
                 >STUDIO
                 </motion.div>}
 
-            </motion.h1>
+            </motion.h1> */}
 
-            { showStText && !mql.matches && <motion.div className='short-text-box'
+            {/* { showStText && !mql.matches && <motion.div className='short-text-box'
                 variants={stBoxVariant}
                 initial="hidden"
                 animate="show"
@@ -473,7 +555,7 @@ const Home = () => {
                 >
                     From the Wonderland
                 </motion.h1>
-            </motion.div>}
+            </motion.div>} */}
 
         </motion.div>
 
@@ -518,7 +600,7 @@ const Home = () => {
                 </motion.div> 
             </Link> 
 
-            <Link to="/gallery" className='nav-item-link'> 
+            <Link to="/explore" className='nav-item-link'> 
                 <motion.div 
                 onMouseEnter={() => setGalleryEffect(true) }
                 onMouseLeave={() => setGalleryEffect(false) }
@@ -529,13 +611,13 @@ const Home = () => {
                         initial="hidden"
                         animate="show"
                         className='item'
-                    >  GALLERY </motion.span> 
+                    >  EXPLORE </motion.span> 
                     { galleryEffect && <motion.span
                         variants={galleryBtn2}
                         initial="hidden"
                         animate="show"
                         className='item'
-                    >  GALLERY </motion.span> }
+                    >  EXPLORE </motion.span> }
                 </motion.div> 
             </Link>
 
@@ -544,7 +626,13 @@ const Home = () => {
             onMouseLeave={() => setContactEffect(false) }
             variants={desc} 
             className='nav-item'
-            onClick={() => {setShowContact(true)}}
+            onClick={() => {
+                if (mobile.matches) {
+                    setShowMobileContact(true);  
+                } else {
+                    setShowContact(true)
+                }
+                }}
             >
                 <motion.span
                     variants={contactBtn1}
@@ -564,65 +652,104 @@ const Home = () => {
 
         {/* CONTACT BOX */}
 
-        {
+    
+        <motion.div
+            initial={{x: '100vw'}}
+            animate={{x: showContact ? 0 : '100vw'}}
+            exit={{x: '100vw'}}
+            transition={{type: 'spring', bounce: 0.20, ease: 'easeIn', duration: 1}}
+            className='contact-box'
+        >
+
             <motion.div
-                initial={{x: '100vw'}}
-                animate={{x: showContact ? 0 : '100vw'}}
-                exit={{x: '100vw'}}
-                transition={{type: 'spring', bounce: 0.20, ease: 'easeIn', duration: 1}}
-                className='contact-box'
+                id='contact-cancel'
+                className='contact-cancel'
+                onClick={() => {setShowContact(false)}}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
             >
 
+                {changeCursor && 
                 <motion.div
-                    id='contact-cancel'
-                    className='contact-cancel'
-                    onClick={() => {setShowContact(false)}}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
+                    className='cursor'
+                    animate="default"
+                    variants={cursorVariants}
                 >
-
-                    {changeCursor && 
-                    <motion.div
-                        className='cursor'
-                        animate="default"
-                        variants={cursorVariants}
-                    >
-                        <HiXMark className='icon' />
-                    </motion.div>
-                    }
-
+                    <HiXMark className='icon' />
                 </motion.div>
+                }
 
-                <motion.div
-                    variants={contactVariant}
-                    initial='hidden'
-                    animate='show'
-                    className='contact-content'
-                >
-
-                    {mql.matches && <motion.div
-                        className='cursor-smallScreen'
-                        onClick={() => {setShowContact(false)}}
-                    >
-                        <HiXMark className='icon' />
-                    </motion.div>}
-
-                    <motion.div className='cc-1' variants={contact}>
-                        This site is developed by
-                    </motion.div>
-
-                    <motion.div className='cc-2' variants={contact}>
-                        Oladipo Samuel
-                    </motion.div>
-
-                    <motion.div className='cc-3' variants={contact}>
-                        Oladiposamuel.ola@gmail.com
-                    </motion.div>
-
-                </motion.div>
-                
             </motion.div>
-        }
+
+            <motion.div
+                variants={contactVariant}
+                initial='hidden'
+                animate='show'
+                className='contact-content'
+            >
+
+                {mql.matches && <motion.div
+                    className='cursor-smallScreen'
+                    onClick={() => {setShowContact(false)}}
+                >
+                    <HiXMark className='icon' />
+                </motion.div>}
+
+                <motion.div className='cc-1' variants={contact}>
+                    This site is developed by
+                </motion.div>
+
+                <motion.div className='cc-2' variants={contact}>
+                    Oladipo Samuel
+                </motion.div>
+
+                <motion.div className='cc-3' variants={contact}>
+                    Oladiposamuel.ola@gmail.com
+                </motion.div>
+
+            </motion.div>
+            
+        </motion.div>
+
+
+
+        <motion.div
+            initial={{y: '100vh'}}
+            animate={{y: showMobileContact ? 0 : '100vh'}}
+            exit={{y: '100vh'}}
+            transition={{type: 'spring', bounce: 0.20, ease: 'easeIn', duration: 1}}
+            className='contact-box-mobile'
+        >
+
+            <motion.div
+                variants={contactMobileVariant}
+                initial='hidden'
+                animate='show'
+                className='contact-content-mobile'
+            >
+
+                {mql.matches && <motion.div
+                    className='cursor-smallScreen'
+                    onClick={() => {setShowMobileContact(false)}}
+                >
+                    <HiXMark className='icon' />
+                </motion.div>}
+
+                <motion.div className='cc-1' variants={contactMobile}>
+                    This site is developed by
+                </motion.div>
+
+                <motion.div className='cc-2' variants={contactMobile}>
+                    Oladipo Samuel
+                </motion.div>
+
+                <motion.div className='cc-3' variants={contactMobile}>
+                    Oladiposamuel.ola@gmail.com
+                </motion.div>
+
+            </motion.div>
+            
+        </motion.div>
 
     </motion.div>
   )

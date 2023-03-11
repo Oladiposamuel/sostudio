@@ -12,6 +12,10 @@ const Gallery = () => {
 
     let mql = window.matchMedia('(max-width: 1024px)');
 
+    let mobile = window.matchMedia('(max-width: 768px)');
+
+    let mobile2 = window.matchMedia('(max-width: 540px)');
+
     const [showLoader1, setShowLoader1] = useState(true);
 
     const [showLoader2, setShowLoader2] = useState(true);
@@ -23,6 +27,8 @@ const Gallery = () => {
     const [contactEffect, setContactEffect] = useState(false);
 
     const [showContact, setShowContact] = useState(false);
+
+    const [showMobileContact, setShowMobileContact] = useState(false);
 
     const [changeCursor, setChangeCursor] = useState(false);
 
@@ -204,6 +210,36 @@ const Gallery = () => {
         }
     }
 
+    const contactMobileVariant = {
+        hidden: {
+            opacity: 1,
+        },
+        show: showMobileContact && {
+            opacity: 1,
+            transition: {
+                type: 'spring',
+                duration: 1,
+                staggerChildren: 0.25,
+                delayChildren: 0.2,
+            }
+        }
+    }
+
+    const contactMobile = {
+        hidden: {
+            opacity: 0,
+            y: -50,
+        },
+        show: showMobileContact && {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: 'spring',
+                duration: 1,
+            }
+        }
+    }
+
     
     useEffect(() => {
 
@@ -272,31 +308,31 @@ const Gallery = () => {
 
         let vid = document.getElementById("myVideo");
         vid.oncanplay = function() {
-            console.log("Can start playing video");
+            //console.log("Can start playing video");
             setPlaceholder(false);
             loop();
         }
 
         const loop = () => {
             setTimeout(() => {
-                setVidId(5);
-            }, 10000)
-
-            setTimeout(() => {
-                setVidId(4);
-            }, 20000)
-
-            setTimeout(() => {
                 setVidId(3);
-            }, 30000)
+            }, 15000)
 
             setTimeout(() => {
                 setVidId(2);
-            }, 40000)
+            }, 30000)
 
             setTimeout(() => {
                 setVidId(1);
-            }, 50000)
+            }, 45000)
+
+            // setTimeout(() => {
+            //     setVidId(2);
+            // }, 60000)
+
+            // setTimeout(() => {
+            //     setVidId(1);
+            // }, 50000)
         }
 
     }, [vidId])
@@ -352,7 +388,7 @@ const Gallery = () => {
                 </motion.div> 
             </Link> 
 
-            <Link to="/gallery" className='nav-item-link'> 
+            <Link to="/explore" className='nav-item-link'> 
                 <motion.div 
                 onMouseEnter={() => setGalleryEffect(true) }
                 onMouseLeave={() => setGalleryEffect(false) }
@@ -363,20 +399,26 @@ const Gallery = () => {
                         initial="hidden"
                         animate="show"
                         className='item'
-                    >  GALLERY </motion.span> 
+                    >  EXPLORE </motion.span> 
                     { galleryEffect && <motion.span
                         variants={galleryBtn2}
                         initial="hidden"
                         animate="show"
                         className='item'
-                    >  GALLERY </motion.span> }
+                    >  EXPLORE </motion.span> }
                 </motion.div> 
             </Link>
 
             <motion.div 
             onMouseEnter={() => setContactEffect(true) }
             onMouseLeave={() => setContactEffect(false) }
-            onClick={() => {setShowContact(true)}}
+            onClick={() => {
+                if (mobile.matches) {
+                    setShowMobileContact(true);  
+                } else {
+                    setShowContact(true)
+                }
+            }}
             variants={desc} 
             className='nav-item'>
                 <motion.span
@@ -405,9 +447,18 @@ const Gallery = () => {
 
             {vidData.map((video, id) => { 
                 return(
+                    !mobile2.matches ?
                     <motion.div className='small-box' key={id} >
                         <motion.video autoPlay muted loop id="myVideo" animate={id == vidId && {opacity: 0}} >
                             <source src={video.cover} type="video/mp4" />
+                        </motion.video>
+                    </motion.div> 
+                    
+                    :
+
+                    <motion.div key={id}>
+                        <motion.video autoPlay muted loop id="myVideo" animate={id == vidId && {opacity: 0}} >
+                            <source src={video.coverMobile} type="video/mp4" />
                         </motion.video>
                     </motion.div>
                 )
@@ -417,58 +468,94 @@ const Gallery = () => {
 
          {/* CONTACT BOX */}
 
-         {
+        <motion.div
+            initial={{x: '100vw'}}
+            animate={{x: showContact ? 0 : '100vw'}}
+            exit={{x: '100vw'}}
+            transition={{type: 'spring', bounce: 0.20, ease: 'easeIn', duration: 1}}
+            className='contact-box'
+        >
+
             <motion.div
-                initial={{x: '100vw'}}
-                animate={{x: showContact ? 0 : '100vw'}}
-                exit={{x: '100vw'}}
-                transition={{type: 'spring', bounce: 0.20, ease: 'easeIn', duration: 1}}
-                className='contact-box'
+                id='contact-cancel'
+                className='contact-cancel'
+                onClick={() => {setShowContact(false)}}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
             >
 
+                {changeCursor && 
                 <motion.div
-                    id='contact-cancel'
-                    className='contact-cancel'
-                    onClick={() => {setShowContact(false)}}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
+                    className='cursor'
+                    animate="default"
+                    variants={cursorVariants}
                 >
-
-                    {changeCursor && 
-                    <motion.div
-                        className='cursor'
-                        animate="default"
-                        variants={cursorVariants}
-                    >
-                        <HiXMark className='icon' />
-                    </motion.div>
-                    }
-
+                    <HiXMark className='icon' />
                 </motion.div>
+                }
 
-                <motion.div
-                    variants={contactVariant}
-                    initial='hidden'
-                    animate='show'
-                    className='contact-content'
-                >
-
-                    <motion.div className='cc-1' variants={contact}>
-                        This site is developed by
-                    </motion.div>
-
-                    <motion.div className='cc-2' variants={contact}>
-                        Oladipo Samuel
-                    </motion.div>
-
-                    <motion.div className='cc-3' variants={contact}>
-                        Oladiposamuel.ola@gmail.com
-                    </motion.div>
-
-                </motion.div>
-                
             </motion.div>
-        }
+
+            <motion.div
+                variants={contactVariant}
+                initial='hidden'
+                animate='show'
+                className='contact-content-gallery'
+            >
+
+                <motion.div className='cc-1' variants={contact}>
+                    This site is developed by
+                </motion.div>
+
+                <motion.div className='cc-2' variants={contact}>
+                    Oladipo Samuel
+                </motion.div>
+
+                <motion.div className='cc-3' variants={contact}>
+                    Oladiposamuel.ola@gmail.com
+                </motion.div>
+
+            </motion.div>
+            
+        </motion.div>
+
+        <motion.div
+            initial={{y: '100vh'}}
+            animate={{y: showMobileContact ? 0 : '100vh'}}
+            exit={{y: '100vh'}}
+            transition={{type: 'spring', bounce: 0.20, ease: 'easeIn', duration: 1}}
+            className='contact-box-mobile'
+        >
+
+            <motion.div
+                variants={contactMobileVariant}
+                initial='hidden'
+                animate='show'
+                className='contact-content-gallery-mobile'
+            >
+
+                {mql.matches && <motion.div
+                    className='cursor-smallScreen'
+                    onClick={() => {setShowMobileContact(false)}}
+                >
+                    <HiXMark className='icon' />
+                </motion.div>}
+
+                <motion.div className='cc-1' variants={contactMobile}>
+                    This site is developed by
+                </motion.div>
+
+                <motion.div className='cc-2' variants={contactMobile}>
+                    Oladipo Samuel
+                </motion.div>
+
+                <motion.div className='cc-3' variants={contactMobile}>
+                    Oladiposamuel.ola@gmail.com
+                </motion.div>
+
+            </motion.div>
+            
+        </motion.div>
 
     </div>
   )
