@@ -476,7 +476,7 @@ const Home = () => {
                                         setDrag('')
 
                                         setTimeout(() => {
-                                            navigate('/gallery');
+                                            navigate('/explore');
                                         }, 1500)
                                     }
 
