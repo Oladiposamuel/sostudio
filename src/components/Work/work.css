@@ -150,6 +150,45 @@
         justify-content: center;
         align-items: center;
     }
+
+    .back-arrow-box {
+        position: absolute;
+        width: max-content;
+        padding: 0em 1em;
+        height: 2rem;
+        top: 5%;
+        left: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .back-arrow {
+        color: #000000;
+        font-size: 3rem;
+    }
+    
+    .next-arrow-box {
+        position: absolute;
+        width: max-content;
+        padding: 0em 1em;
+        height: 2rem;
+        bottom: 5%;
+        right: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .next-arrow {
+        color: #ffffff;
+        font-size: 4rem;
+    }
     
 }
 

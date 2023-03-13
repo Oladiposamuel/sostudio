@@ -7,14 +7,12 @@ import Work from './components/Work/Work';
 function App() {
   return (
     <div className="App">
-      {/* <BrowserRouter> */}
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/explore' element={<Gallery />} />
-          <Route path='/work/:slug' element={<Work />} /> 
-          <Route  path='/*' element={<Home />} />
-        </Routes>
-      {/* </BrowserRouter> */}
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/explore' element={<Gallery />} />
+        <Route path='/work/:slug' element={<Work />} /> 
+        <Route  path='/*' element={<Home />} />
+      </Routes>
     </div>
   );
 }
